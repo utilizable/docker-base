@@ -24,18 +24,9 @@ jobs:
 # -----------------
 # DOCKER BUILDING
 # -----------------
+      
   build:
-    runs-on: ubuntu-latest
     needs: semver
-    steps:
-      - run: echo ${{ needs.semver.outputs.tag }}
-
-      - name: Build step
-        run: |
-          echo "Building with tag ${{ needs.semver.outputs.tag }}"
-          
-  #building:
-  #  needs: semver
-  #  uses: utilizable/github-actions-docker-building/.github/workflows/building.yml@develop
-  #  with:
-  #    tag: ${{ needs.semver.outputs.tag }}
+    uses: utilizable/github-actions-docker-building/.github/workflows/building.yml@develop
+    with:
+      tag: ${{ needs.semver.outputs.tag }}
