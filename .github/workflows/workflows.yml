@@ -24,7 +24,7 @@ jobs:
 # -----------------
 
   semver:
-    uses: utilizable/github-actions-semver-tagging/.github/workflows/tagging.yml@develop
+    uses: utilizable/github-actions-semver-tagging/.github/workflows/semver.yml@develop
 
 # -----------------
 # DOCKER BUILDING
