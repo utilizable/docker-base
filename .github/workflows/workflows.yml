@@ -19,20 +19,27 @@ jobs:
 # -----------------
 
   semver:
-    uses: utilizable/github-actions-semver-tagging/.github/workflows/tagging.yml@feat/output
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.semver.outputs.tag }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Semantic Versioning
+        uses: utilizable/github-actions-semver-tagging/.github/workflows/tagging.yml@feat/output
 
 # -----------------
 # DOCKER BUILDING
 # -----------------
       
-  # DOCKER BUILDING
   build:
     needs: semver
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
+        
       - name: Docker Build and Push
         uses: utilizable/github-actions-docker-building/.github/workflows/building.yml@develop
         with:
