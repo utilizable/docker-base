@@ -25,8 +25,15 @@ jobs:
 # DOCKER BUILDING
 # -----------------
       
+  # DOCKER BUILDING
   build:
     needs: semver
-    uses: utilizable/github-actions-docker-building/.github/workflows/building.yml@develop
-    with:
-      tag: ${{ needs.semver.outputs.tag }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Docker Build and Push
+        uses: utilizable/github-actions-docker-building/.github/workflows/building.yml@develop
+        with:
+          tag: ${{ needs.semver.outputs.tag }}
