@@ -28,5 +28,3 @@ jobs:
   build:
     needs: semver
     uses: utilizable/github-actions-docker-building/.github/workflows/building.yml@develop
-    with:
-      tag: ${{ needs.semver.outputs.tag }}
