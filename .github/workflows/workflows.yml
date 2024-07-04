@@ -26,5 +26,5 @@ jobs:
 # -----------------
       
   build:
-    needs: semver
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
     uses: utilizable/github-actions-docker-building/.github/workflows/building.yml@develop
