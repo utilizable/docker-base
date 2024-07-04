@@ -9,11 +9,6 @@ permissions:
 on:
   # Trigger automaticly;  
   push:
-    tags:
-      - '*' # Trigger on all tags  
-    branches:
-      - '*' # Trigger on all branches  
-      
   # Trigger manually;
   workflow_dispatch:
 
