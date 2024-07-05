@@ -16,7 +16,6 @@ on:
 
 jobs:
   tagging:
-    #    uses: "${{ GH_ACTIONS }}/tagging/tagging.yml@develop"
-    uses: "utilizable/github-actions/.github/workflows/tagging.yml@develop"
+    uses: utilizable/github-actions/.github/workflows/tagging.yml@develop
     secrets:
       PAT: ${{ secrets.PAT }}
