@@ -15,7 +15,6 @@ on:
   workflow_dispatch:
 
 jobs:
-
   tagging:
     uses: "${{ GH_ACTIONS }}/tagging/tagging.yml@develop"
     secrets:
