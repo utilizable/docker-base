@@ -1,20 +1,20 @@
-name: tag 
-
-# Allow repository modyfication;
-permissions:
-  contents: write
-  pull-requests: write
-  packages: write
-
-on:
-  # Trigger automaticly;  
-  push:
-    tags:
-      - '*' 
-
-  # Trigger manually;
-  workflow_dispatch:
-
-jobs:
-  build:
-    uses: "${{ GH_ACTIONS }}/building/building.yml@develop"
+#name: tag 
+#
+## Allow repository modyfication;
+#permissions:
+#  contents: write
+#  pull-requests: write
+#  packages: write
+#
+#on:
+#  # Trigger automaticly;  
+#  push:
+#    tags:
+#      - '*' 
+#
+#  # Trigger manually;
+#  workflow_dispatch:
+#
+#jobs:
+#  build:
+#    uses: "${{ GH_ACTIONS }}/building/building.yml@develop"
