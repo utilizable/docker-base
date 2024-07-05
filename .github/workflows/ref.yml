@@ -1,0 +1,21 @@
+name: ref 
+
+# Allow repository modyfication;
+permissions:
+  contents: write
+  pull-requests: write
+  packages: write
+
+on:
+  # Trigger automaticly;
+  push:
+    branches:
+      - '*' 
+  # Trigger manually;
+  workflow_dispatch:
+
+jobs:
+  semver:
+    uses: utilizable/github-actions/tagging/tagging.yml@develop
+    secrets:
+      PAT: ${{ secrets.PAT }}
