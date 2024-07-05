@@ -1,21 +1,21 @@
-name: build 
-
-# Allow repository modyfication;
-permissions:
-  contents: write
-  pull-requests: write
-  packages: write
-
-on:
-  # Trigger automaticly;  
-  push:
-    tags:
-      - '*' 
-
-  # Trigger manually;
-  workflow_dispatch:
-
-jobs:
-  build:
-    uses: utilizable/github-actions-docker-building/.github/workflows/building.yml@develop
-
+#name: build 
+#
+## Allow repository modyfication;
+#permissions:
+#  contents: write
+#  pull-requests: write
+#  packages: write
+#
+#on:
+#  # Trigger automaticly;  
+#  push:
+#    tags:
+#      - '*' 
+#
+#  # Trigger manually;
+#  workflow_dispatch:
+#
+#jobs:
+#  build:
+#    uses: utilizable/github-actions-docker-building/.github/workflows/building.yml@develop
+#

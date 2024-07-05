@@ -1,4 +1,10 @@
-# Base image
+############################################################
+# Copyright (c) 2024 Utilizable 
+# Released under the MIT license
+############################################################
+#
+# ├─utilizable/ubuntu-fakeroot
+
 ARG DISTRIBUTION=24.04
 FROM ubuntu:${DISTRIBUTION}
 
@@ -45,7 +51,7 @@ RUN apt-get update && \
     usermod -aG adm,audio,cdrom,dialout,dip,fax,floppy,games,input,lp,plugdev,render,ssl-cert,sudo,tape,tty,video,voice ${USER_NAME} && \
 
     echo "${USER_NAME} ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers && \
-    echo "${USER_NAME}:${USER_PASSWORD}}" | chpasswd && \
+    echo "${USER_NAME}:${USER_PASSWORD}" | chpasswd && \
 
     # Clean up unnecessary files
     apt-get clean && \ 
