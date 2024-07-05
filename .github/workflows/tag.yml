@@ -17,5 +17,4 @@ on:
 
 jobs:
   build:
-    #    uses: "${{ GH_ACTIONS }}/building/building.yml@develop"
-    uses: "utilizable/github-actions/.github/workflows/building/building.yml@develop"
+    uses: "${{ GH_ACTIONS }}/building/building.yml@develop"
