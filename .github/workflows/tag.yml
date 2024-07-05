@@ -17,4 +17,4 @@ on:
 
 jobs:
   build:
-    uses: utilizable/github-actions/building/building.yml@develop
+    uses: utilizable/github-actions/.github/workflows/building/building.yml@develop

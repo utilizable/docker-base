@@ -15,7 +15,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  semver:
-    uses: utilizable/github-actions/tagging/tagging.yml@develop
+
+  tagging:
+    uses: ${{ GH_ACTIONS }}/tagging/tagging.yml@develop
     secrets:
       PAT: ${{ secrets.PAT }}
