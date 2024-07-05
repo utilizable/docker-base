@@ -17,6 +17,6 @@ on:
 jobs:
 
   tagging:
-    uses: ${{ GH_ACTIONS }}/tagging/tagging.yml@develop
+    uses: "${{ GH_ACTIONS }}/tagging/tagging.yml@develop"
     secrets:
       PAT: ${{ secrets.PAT }}
