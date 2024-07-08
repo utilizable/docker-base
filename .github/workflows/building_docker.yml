@@ -29,13 +29,24 @@ on:
 jobs:
 
   # -----------------
+  # Hadolint 
+  # -----------------
+  hadolint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: utilizable/github-actions/.github/actions/linting/docker/hadolint@develop
+        with:
+          file: ./Dockerfile 
+
+  # -----------------
   # Building & Pushing to Github registry 
   # -----------------
   github:
+    needs: [ hadolint ]
     runs-on: ubuntu-latest
     steps:
       - uses: utilizable/github-actions/.github/actions/building/docker/github@develop
         with:
           token: ${{ secrets.token }}
-          context: ${{ inputs.context }} 
-          file: ${{ inputs.file }}
+          context: ./ 
+          file: ./Dockerfile 
