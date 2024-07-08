@@ -46,7 +46,7 @@ jobs:
   # -----------------
   github:
     name: "Artifactory Github"
-      #    needs: [ hadolint ]
+    needs: [ hadolint ]
     runs-on: ubuntu-latest
     steps:
       - uses: utilizable/github-actions/.github/actions/building/docker/github@develop
