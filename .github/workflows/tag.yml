@@ -11,7 +11,6 @@ on:
   push:
     tags:
       - '*' 
-
   # Trigger manually;
   workflow_dispatch:
 
@@ -19,6 +18,4 @@ jobs:
   build:
     uses: utilizable/github-actions/.github/workflows/building_docker.yml@develop
     secrets:
-      PAT: ${{ secrets.PAT }}
-    with:
-      context: ./
+      token: ${{ secrets.TOKEN }}
