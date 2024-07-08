@@ -17,5 +17,5 @@ on:
 jobs:
   tagging:
     uses: utilizable/github-actions/.github/workflows/tagging_semver.yml@develop
-    with:
-      token: ${{ secrets.PAT }}
+    secrets:
+      PAT: ${{ secrets.PAT }}
