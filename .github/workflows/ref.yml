@@ -19,5 +19,3 @@ jobs:
     uses: utilizable/github-actions/.github/workflows/tagging_semver.yml@develop
     secrets:
       PAT: ${{ secrets.PAT }}
-    with:
-      context: ./
