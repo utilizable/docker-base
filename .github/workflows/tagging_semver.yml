@@ -2,25 +2,18 @@
 name: Tagging Semver
 
 # Allow repository modyfication;
-permissions:
-  contents: write
-  pull-requests: write
+#permissions:
+#  contents: write
+#  pull-requests: write
 
 on:
-  # Allow to re-use this jobs;   
-  # Pass Private Access Token to allow 
-  # create new-workflow for new tag
-  # workflow_call:
-        
-  # Trigger minor update;
-  # Trigger patch update;
-  # Trigger on all branches;
-  # Trigger on each branch-push;
+  # Trigger minor on default ref;
+  # Trigger patch on default ref;
   push:
     branches:
       - '*' 
    
-  # Triger manualy;
+  # Trigger major on default ref;
   workflow_dispatch:
 
 jobs:
