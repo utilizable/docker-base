@@ -1,0 +1,67 @@
+# tagging.yml
+name: Tagging Semver
+
+# Allow repository modyfication;
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  # Allow to re-use this jobs;   
+  # Pass Private Access Token to allow 
+  # create new-workflow for new tag
+  # workflow_call:
+        
+  # Trigger minor update;
+  # Trigger patch update;
+  # Trigger on all branches;
+  # Trigger on each branch-push;
+  push:
+    branches:
+      - '*' 
+   
+  # Triger manualy;
+  workflow_dispatch:
+
+jobs:
+
+  # -----------------
+  # Major X.0.0 
+  # -----------------
+  major:
+    # Restrict to manual startup; 
+    # Restrict to default branch;
+    if: ${{ (github.event_name == 'workflow_dispatch' && github.actor) &&
+            (always() && (format('refs/heads/{0}', github.event.repository.default_branch) == github.ref)) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: utilizable/github-actions/.github/actions/tagging/semver/major@develop
+        with:
+          token: ${{ secrets.token }}
+  
+  # -----------------
+  # Minor 0.X.0 
+  # -----------------
+  minor:
+    # Restrict to push startup; 
+    # Restrict to default branch;
+    if: ${{ (github.event_name == 'push') &&
+            (always() && (format('refs/heads/{0}', github.event.repository.default_branch) == github.ref)) }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: utilizable/github-actions/.github/actions/tagging/semver/minor@develop
+      with:
+        token: ${{ secrets.token }}
+      
+  # -----------------
+  # Patch 0.0.X 
+  # -----------------
+  patch:
+    # Restrict to the fix branch; 
+    if: ${{ startsWith(github.ref, 'refs/heads/fix/') && endsWith(github.ref, '.x') }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: utilizable/github-actions/.github/actions/tagging/semver/patch@develop
+      with:
+        token: ${{ secrets.token }}
+
