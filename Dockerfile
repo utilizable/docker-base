@@ -22,7 +22,6 @@ ENV LANG="en_US.UTF-8" \
 
 # Install required packages
 RUN apt-get update && \
-    apt-get dist-upgrade -y && \
     apt-get install --no-install-recommends -y \
       fakeroot \
       locales \
@@ -62,5 +61,4 @@ RUN apt-get update && \
 
 # Switch to non-root user and set the default shell to use fakeroot
 USER 1001
-SHELL ["/usr/bin/fakeroot", "--", "/bin/sh", "-c"]
-
+SHELL ["/usr/bin/fakeroot", "--", "/bin/sh", "-o", "pipefail", "-c"]
