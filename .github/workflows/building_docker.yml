@@ -26,7 +26,6 @@ jobs:
         name: Find Dockerfile
         id: find-dockerfile
         run: |
-          ls;
           DOCKERFILE_PATH=$(find ${PWD} -name "Dockerfile");
           echo "DOCKERFILE_PATH=${DOCKERFILE_PATH}" >> $GITHUB_OUTPUT
 
