@@ -6,6 +6,10 @@ on:
   push:
     tags:
       - '*'
+
+  # Trigger major on default ref;
+  workflow_dispatch:
+
 jobs:
 
   # -----------------
