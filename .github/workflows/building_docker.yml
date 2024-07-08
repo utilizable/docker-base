@@ -32,6 +32,7 @@ jobs:
   # Hadolint 
   # -----------------
   hadolint:
+    name: "Lint Dockerfile"
     runs-on: ubuntu-latest
     steps:
       - uses: utilizable/github-actions/.github/actions/linting/docker/hadolint@develop
@@ -42,6 +43,7 @@ jobs:
   # Building & Pushing to Github registry 
   # -----------------
   github:
+    name: "Artifactory Github"
     needs: [ hadolint ]
     runs-on: ubuntu-latest
     steps:
