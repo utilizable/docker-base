@@ -6,7 +6,8 @@ on:
   # Trigger patch on default ref;
   push:
     branches:
-      - '*' 
+      - '*'         # matches every branch that doesn't contain a '/'
+      - 'fix/*'     # matches every branch containing a single '/'
    
   # Trigger major on default ref;
   workflow_dispatch:
@@ -49,10 +50,8 @@ jobs:
   patch:
     name: "Semver: Patch"
     # Restrict to the fix branch; 
-    if: ${{ startsWith(github.ref, 'refs/heads/fix/') && endsWith(github.ref, '.x') }}
     runs-on: ubuntu-latest
     steps:
     - uses: utilizable/github-actions/.github/actions/tagging/semver/patch@develop
       with:
         token: ${{ secrets.token }}
-
