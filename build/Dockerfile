@@ -54,3 +54,4 @@ RUN apt-get update && \
 # Switch to non-root user and set the default shell to use sudo
 USER ${USER_NAME}
 SHELL ["/usr/bin/sudo", "--", "/bin/bash", "-c"]
+
