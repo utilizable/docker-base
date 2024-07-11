@@ -61,4 +61,4 @@ RUN apt-get update && \
 
 # Switch to non-root user and set the default shell to use fakeroot
 USER 1001
-SHELL ["/usr/bin/fakeroot", "--", "/bin/bash", "-o", "pipefail", "-c"]
+#SHELL ["/usr/bin/fakeroot", "--", "/bin/bash", "-o", "pipefail", "-c"]
