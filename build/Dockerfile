@@ -51,6 +51,6 @@ RUN apt-get update && \
     apt-get clean && \ 
     rm -rf /var/lib/apt/lists/* /var/cache/debconf/* /var/log/* /tmp/* /var/tmp/*
 
-# Switch to non-root user and set the default shell to use fakeroot
+# Switch to non-root user and set the default shell to use sudo
 USER ${USER_NAME}
 SHELL ["/usr/bin/sudo", "--", "/bin/bash", "-c"]
