@@ -51,6 +51,6 @@ RUN apt-get update && \
     apt-get clean && \ 
     rm -rf /var/lib/apt/lists/* /var/cache/debconf/* /var/log/* /tmp/* /var/tmp/*
 
-# Switch to non-root user and set the default shell to use sudo
+# Switch to non-root user and execute shell as sudo
 USER ${USER_NAME}
-SHELL ["/usr/bin/sudo", "--", "/bin/bash", "-c"]
+CMD ["/usr/bin/sudo", "--", "/bin/bash", "-c"]
