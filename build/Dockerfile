@@ -23,7 +23,6 @@ ENV LANG="en_US.UTF-8" \
 # Install required packages
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-      fakeroot \
       locales \
       ssl-cert \
       sudo \
@@ -34,10 +33,6 @@ RUN apt-get update && \
     locale-gen en_US.UTF-8 && \
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && \
     echo "$TZ" > /etc/timezone && \
-
-    # Move sudo to sudo-root to restrict its use
-    mv -f /usr/bin/sudo /usr/bin/sudo-root && \
-    ln -snf /usr/bin/fakeroot /usr/bin/sudo  && \ 
 
     # Create a non-root user with sudo privileges
     groupadd -g 1001 ${USER_NAME} || \
@@ -54,11 +49,10 @@ RUN apt-get update && \
 
     # Clean up unnecessary files
     apt-get clean && \ 
-    rm -rf /var/lib/apt/lists/* /var/cache/debconf/* /var/log/* /tmp/* /var/tmp/* && \
-
-    chown -R -f --no-preserve-root ${USER_NAME}:${USER_NAME} / || \
-      echo "Failed to set filesystem ownership in some paths to ${USER_NAME} user"
+    rm -rf /var/lib/apt/lists/* /var/cache/debconf/* /var/log/* /tmp/* /var/tmp/*
 
 # Switch to non-root user and set the default shell to use fakeroot
-#USER 1001
-#SHELL ["/usr/bin/fakeroot", "--", "/bin/bash", "-o", "pipefail", "-c"]
+USER ${USER_NAME}
+
+# Default command
+CMD ["/bin/bash"]
