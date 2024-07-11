@@ -53,4 +53,4 @@ RUN apt-get update && \
 
 # Switch to non-root user and execute shell as sudo
 USER ${USER_NAME}
-CMD ["/usr/bin/sudo", "--", "/bin/bash", "-c"]
+SHELL ["/usr/bin/sudo", "--", "/bin/bash", "-c"]
