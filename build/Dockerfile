@@ -28,8 +28,11 @@ ENV TZ=${TZ} \
     
 # Install required packages
 RUN apt-get update && \
+
+    apt-get install -y --no-install-recommends -y \
+        apt-utils 
+
     apt-get install --no-install-recommends -y \
-      apt-utils \
       fakeroot \
       ssl-cert \
       sudo \
