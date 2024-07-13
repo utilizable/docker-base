@@ -24,7 +24,7 @@ ENV TZ=${TZ} \
 # Install required packages
 RUN apt-get update && \
 
-    cat <<EOF | sudo tee -a /etc/locale.conf \
+    cat <<EOF | tee -a /etc/locale.conf \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
