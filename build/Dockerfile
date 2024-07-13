@@ -23,9 +23,9 @@ ARG GROUP_UID=${USER_UID}
 
 # Set environment variables for locales and timezone
 ENV TZ=${TZ} \
-    LANGUAGE=en_US:en \
-    LC_ALL=en_US.UTF-8 \
+    LANGUAGE=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8 \
     LC_CTYPE=en_US.UTF-8
     
 # Install required packages
