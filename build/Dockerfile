@@ -32,7 +32,8 @@ RUN apt-get update && \
       tzdata && \
 
     # Clean up unnecessary files and set locale and timezone
-    locale-gen en_US.UTF-8 && \
+    locale-gen ${LANG} && \
+    update-locale LANG=${LANG} LC_ALL=${LC_ALL} LANGUAGE=${LANGUAGE} && \
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && \
     echo "$TZ" > /etc/timezone && \
 
@@ -44,7 +45,7 @@ RUN apt-get update && \
     groupadd -g ${USER_UID} ${USER_NAME} || \
       echo "Failed to add ${USER_NAME} group" && \
 
-    useradd -m -l /bin/bash ${USER_NAME} -u ${USER_UID} -g ${USER_UID} || \
+    useradd -m -l -s /bin/bash ${USER_NAME} -u ${USER_UID} -g ${USER_UID} || \
       echo "Failed to add ${USER_NAME} user" && \
 
     # Add fakeroot user to groups 
