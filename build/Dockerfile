@@ -38,7 +38,7 @@ RUN apt-get update && \
     update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US:en && \
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && \
     echo "$TZ" > /etc/timezone && \
-    
+
     apt-get install --no-install-recommends -y \
       apt-utils \
       fakeroot \
@@ -48,7 +48,7 @@ RUN apt-get update && \
 
     # Move sudo to sudo-root to restrict its use
     mv -f /usr/bin/sudo /usr/bin/sudo-root && \
-    ln -snf /usr/bin/fakeroot /usr/bin/sudo  && \ 
+    ln -snf /usr/bin/fakeroot /usr/bin/sudo && \ 
 
     # Create a non-root user with sudo privileges
     groupadd -g ${USER_UID} ${USER_NAME} || \
