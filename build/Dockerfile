@@ -20,7 +20,7 @@ ENV TZ=${TZ} \
     LANGUAGE="en_US:en" \
     LC_ALL="en_US.UTF-8" \
     LANG="en_US.UTF-8"
-    
+
 # Install required packages
 RUN apt-get update && \
 
@@ -43,7 +43,7 @@ RUN apt-get update && \
       fakeroot \
       ssl-cert \
       sudo \
-      udev 
+      udev \
       tzdata && \
 
     # Move sudo to sudo-root to restrict its use
