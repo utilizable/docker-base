@@ -24,12 +24,12 @@ ENV TZ=${TZ} \
 # Install required packages
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
+      apt-utils \
       fakeroot \
       locales \
       ssl-cert \
       sudo \
       udev \
-      apt-utils \
       tzdata && \
 
     # Set locale and timezone
