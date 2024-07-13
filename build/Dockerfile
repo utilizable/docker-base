@@ -23,21 +23,8 @@ ARG GROUP_UID=${USER_UID}
 
 # Set environment variables for locales and timezone
 ENV TZ=${TZ} \
-    LANGUAGE=en_US.UTF-8 \
-    LANG=en_US.UTF-8 \
-    LC_ALL=en_US.UTF-8 \
-    LC_CTYPE=en_US.UTF-8
-    
-# Install required packages
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-      locales && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-
-    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
-    locale-gen en_US.UTF-8 && \
-    update-locale LANG=en_US.UTF-8
+    LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8
     
 # Install required packages
 RUN apt-get update && \
@@ -47,9 +34,12 @@ RUN apt-get update && \
       ssl-cert \
       sudo \
       udev \
+      locales \
       tzdata && \
 
-    ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone && \
+    locale-gen en_US.UTF-8 && \ 
+    ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && \
+    echo "$TZ" > /etc/timezone && \
 
     # Move sudo to sudo-root to restrict its use
     mv -f /usr/bin/sudo /usr/bin/sudo-root && \
