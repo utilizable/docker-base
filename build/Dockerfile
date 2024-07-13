@@ -24,12 +24,8 @@ ENV TZ=${TZ} \
 # Install required packages
 RUN apt-get update && \
 
-    cat <<EOF | tee -a /etc/locale.conf \
-    LANGUAGE=en_US.UTF-8 \
-    LC_ALL=en_US.UTF-8 \
-    LANG=en_US.UTF-8 \
-    LC_CTYPE=en_US.UTF-8 \
-    EOF && \
+    echo "LANGUAGE=en_US.UTF-8\nLC_ALL=en_US.UTF-8\nLANG=en_US.UTF-8\nLC_CTYPE=en_US.UTF-8" > \
+        /etc/locale.conf && \
 
     apt-get install --no-install-recommends -y \
         locales && \
