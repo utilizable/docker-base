@@ -10,6 +10,7 @@ FROM ubuntu:${DISTRIBUTION}
 
 # Define build-time arguments
 ARG DEBIAN_FRONTEND=noninteractive
+ARG DEBCONF_NOWARNINGS=yes
 ARG TZ=UTC
 
 # User argumnets
