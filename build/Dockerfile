@@ -34,7 +34,6 @@ RUN apt-get update && \
     printf "LANGUAGE=en_US.UTF-8\nLC_ALL=en_US.UTF-8\nLANG=en_US.UTF-8\nLC_CTYPE=en_US.UTF-8\n" > /etc/locale.conf && \
 
     # Set locale and timezone
-    update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US:en && \
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && \
     echo "$TZ" > /etc/timezone && \
 
@@ -50,6 +49,7 @@ RUN apt-get update && \
       tzdata && \
 
     locale-gen ${LANG} && \
+    update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US:en && \
 
     # Move sudo to sudo-root to restrict its use
     mv -f /usr/bin/sudo /usr/bin/sudo-root && \
