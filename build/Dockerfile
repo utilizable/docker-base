@@ -31,6 +31,9 @@ ENV TZ=${TZ} \
 # Install required packages
 RUN apt-get update && \
 
+    apt-get install --no-install-recommends -y \
+      locales && \
+
     locale-gen en_US.UTF-8 && \
 
     apt-get install --no-install-recommends -y \
