@@ -44,7 +44,7 @@ RUN apt-get update && \
     groupadd -g ${USER_UID} ${USER_NAME} || \
       echo "Failed to add ${USER_NAME} group" && \
 
-    useradd -msl /bin/bash ${USER_NAME} -u ${USER_UID} -g ${USER_UID} || \
+    useradd -m -l /bin/bash ${USER_NAME} -u ${USER_UID} -g ${USER_UID} || \
       echo "Failed to add ${USER_NAME} user" && \
 
     # Add fakeroot user to groups 
