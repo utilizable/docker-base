@@ -30,7 +30,7 @@ ENV TZ=${TZ} \
 RUN apt-get update && \
 
     apt-get install -y --no-install-recommends -y \
-      apt-utils 
+      apt-utils && \
 
     apt-get install --no-install-recommends -y \
       fakeroot \
