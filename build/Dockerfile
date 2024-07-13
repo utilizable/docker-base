@@ -16,11 +16,10 @@ ARG USER_PASSWORD=mypasswd
 ARG USER_UID=1001
 
 # Set environment variables for locales and timezone
-ENV LANG="en_US.UTF-8" \
-    LC_ALL="en_US.UTF-8" \
-    LANGUAGE="en_US:en" \
-    TZ=${TZ}
-
+ENV TZ=${TZ} \
+ 	LANGUAGE="en_US:en" \
+	LC_ALL="en_US.UTF-8" \
+	LANG="en_US.UTF-8"
 # Install required packages
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
@@ -29,6 +28,7 @@ RUN apt-get update && \
       ssl-cert \
       sudo \
       udev \
+      apt-utils \
       tzdata && \
 
     # Clean up unnecessary files and set locale and timezone
