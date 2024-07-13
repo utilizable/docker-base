@@ -17,9 +17,10 @@ ARG USER_UID=1001
 
 # Set environment variables for locales and timezone
 ENV TZ=${TZ} \
- 	LANGUAGE="en_US:en" \
-	LC_ALL="en_US.UTF-8" \
-	LANG="en_US.UTF-8"
+    LANGUAGE="en_US:en" \
+    LC_ALL="en_US.UTF-8" \
+    LANG="en_US.UTF-8"
+    
 # Install required packages
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
@@ -31,9 +32,9 @@ RUN apt-get update && \
       apt-utils \
       tzdata && \
 
-    # Clean up unnecessary files and set locale and timezone
+    # Set locale and timezone
     locale-gen ${LANG} && \
-    update-locale LANG=${LANG} LC_ALL=${LC_ALL} LANGUAGE=${LANGUAGE} && \
+    update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US:en && \
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && \
     echo "$TZ" > /etc/timezone && \
 
