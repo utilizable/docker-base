@@ -30,7 +30,7 @@ RUN apt-get update && \
     update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US:en && \
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && \
     echo "$TZ" > /etc/timezone && \
-    
+
     apt-get install --no-install-recommends -y \
         locales && \
 
@@ -43,7 +43,7 @@ RUN apt-get update && \
       sudo \
       udev \
       tzdata && \
-    
+
     # Move sudo to sudo-root to restrict its use
     mv -f /usr/bin/sudo /usr/bin/sudo-root && \
     ln -snf /usr/bin/fakeroot /usr/bin/sudo && \ 
