@@ -38,9 +38,8 @@ RUN apt-get update && \
       tzdata \
       locales && \
 
-    locale-gen ${LC_ALL} && \
-    ln -snf "/usr/share/zoneinfo/${TZ}" /etc/localtime && \
-    echo "${TZ}" > /etc/timezone && \
+    locale-gen en_US.UTF-8 && \
+    ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone && \
 
     # Move sudo to sudo-root to restrict its use
     mv -f /usr/bin/sudo /usr/bin/sudo-root && \
