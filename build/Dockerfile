@@ -25,15 +25,15 @@ ENV TZ=${TZ} \
 RUN apt-get update && \
 
     printf "LANGUAGE=en_US.UTF-8\nLC_ALL=en_US.UTF-8\nLANG=en_US.UTF-8\nLC_CTYPE=en_US.UTF-8\n" > /etc/locale.conf && \
-
-    apt-get install --no-install-recommends -y \
-        locales && \
-
+    
     # Set locale and timezone
     locale-gen ${LANG} && \
     update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US:en && \
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && \
+    
     echo "$TZ" > /etc/timezone && \
+    apt-get install --no-install-recommends -y \
+        locales && \
 
     apt-get install --no-install-recommends -y \
       apt-utils \
