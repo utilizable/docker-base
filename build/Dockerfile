@@ -27,7 +27,7 @@ ENV TZ=${TZ} \
     LANG=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
     LC_CTYPE=en_US.UTF-8
-    
+locale-gen en_US.UTF-8 && \
 # Install required packages
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
@@ -38,8 +38,6 @@ RUN apt-get update && \
       udev \
       tzdata \
       locales && \
-
-    locale-gen en_US.UTF-8 && \
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone && \
 
     # Move sudo to sudo-root to restrict its use
