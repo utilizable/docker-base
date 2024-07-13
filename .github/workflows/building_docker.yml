@@ -56,5 +56,5 @@ jobs:
         with:
           token: ${{ secrets.token || github.token }}
           context: ./build
-            #file: ${{ needs.prepare.outputs.dockerfilepath }}
           file: ./build/Dockerfile 
+          buildkit: 'false'
