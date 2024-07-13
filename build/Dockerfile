@@ -13,6 +13,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG TZ=UTC
 ARG USER_NAME=fakeroot
 ARG USER_PASSWORD=mypasswd
+ARG USER_UID=1001
 
 # Set environment variables for locales and timezone
 ENV LANG="en_US.UTF-8" \
@@ -40,10 +41,10 @@ RUN apt-get update && \
     ln -snf /usr/bin/fakeroot /usr/bin/sudo  && \ 
 
     # Create a non-root user with sudo privileges
-    groupadd -g 1001 ${USER_NAME} || \
+    groupadd -g ${USER_UID} ${USER_NAME} || \
       echo "Failed to add ${USER_NAME} group" && \
 
-    useradd -ms /bin/bash ${USER_NAME} -u 1001 -g 1001 || \
+    useradd -ms /bin/bash ${USER_NAME} -u ${USER_UID} -g ${USER_UID} || \
       echo "Failed to add ${USER_NAME} user" && \
 
     # Add fakeroot user to groups 
@@ -60,5 +61,5 @@ RUN apt-get update && \
       echo "Failed to set filesystem ownership in some paths to ${USER_NAME} user"
 
 # Switch to non-root user and set the default shell to use fakeroot
-USER 1001
-SHELL ["/usr/bin/fakeroot", "--", "/bin/bash", "-o", "pipefail", "-c"]
+USER ${USER_UID}
+SHELL ["/usr/bin/fakeroot", "--", "/bin/bash", "-c"]
