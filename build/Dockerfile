@@ -21,7 +21,6 @@ ARG USER_PASSWORD=mypasswd
 ARG GROUP_NAME=${USER_NAME}
 ARG GROUP_UID=${USER_UID}
 
-
 # Set environment variables for locales and timezone
 ENV TZ=${TZ} \
     LANGUAGE="en_US:en" \
@@ -30,26 +29,18 @@ ENV TZ=${TZ} \
 
 # Install required packages
 RUN apt-get update && \
-
-    printf "LANGUAGE=en_US.UTF-8\nLC_ALL=en_US.UTF-8\nLANG=en_US.UTF-8\nLC_CTYPE=en_US.UTF-8\n" > /etc/locale.conf && \
-
-    # Set locale and timezone
-    ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && \
-    echo "$TZ" > /etc/timezone && \
-
-    apt-get install --no-install-recommends -y \
-        locales && \
-
     apt-get install --no-install-recommends -y \
       apt-utils \
       fakeroot \
       ssl-cert \
       sudo \
       udev \
-      tzdata && \
+      tzdata \
+      locales && \
 
-    locale-gen ${LANG} && \
-    update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US:en && \
+    locale-gen ${LC_ALL} && \
+    ln -snf "/usr/share/zoneinfo/${TZ}" /etc/localtime && \
+    echo "${TZ}" > /etc/timezone && \
 
     # Move sudo to sudo-root to restrict its use
     mv -f /usr/bin/sudo /usr/bin/sudo-root && \
