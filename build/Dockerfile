@@ -30,8 +30,7 @@ RUN apt-get update && \
     export LC_CTYPE=en_US.UTF-8 && \
 
     apt-get install --no-install-recommends -y \
-        locales \
-        tzdata && \
+        locales && \
 
     # Set locale and timezone
     locale-gen ${LANG} && \
@@ -44,7 +43,8 @@ RUN apt-get update && \
       fakeroot \
       ssl-cert \
       sudo \
-      udev && \
+      udev 
+      tzdata && \
 
     # Move sudo to sudo-root to restrict its use
     mv -f /usr/bin/sudo /usr/bin/sudo-root && \
