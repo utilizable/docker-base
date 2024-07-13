@@ -27,27 +27,27 @@ ENV TZ=${TZ} \
     LANG=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
     LC_CTYPE=en_US.UTF-8
-
+    
 # Install required packages
 RUN apt-get update && \
-
-    echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
-    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
-    echo "LANG=en_US.UTF-8" > /etc/locale.conf && \
-
-    apt-get install --no-install-recommends -y \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
       locales && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
 
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen en_US.UTF-8 && \
-
+    update-locale LANG=en_US.UTF-8
+    
+# Install required packages
+RUN apt-get update && \
     apt-get install --no-install-recommends -y \
       apt-utils \
       fakeroot \
       ssl-cert \
       sudo \
       udev \
-      tzdata \
-      locales && \
+      tzdata && \
 
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone && \
 
