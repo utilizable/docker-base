@@ -31,7 +31,7 @@ ENV TZ=${TZ} \
 # Install required packages
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-      fakeroot \
+      #fakeroot \
       ssl-cert \
       sudo \
       udev \
@@ -45,8 +45,8 @@ RUN apt-get update && \
     echo "${TZ}" > /etc/timezone && \
 
     # Move sudo to sudo-root to restrict its use
-    mv -f /usr/bin/sudo /usr/bin/sudo-root && \
-    ln -snf /usr/bin/fakeroot /usr/bin/sudo && \ 
+    #mv -f /usr/bin/sudo /usr/bin/sudo-root && \
+    #ln -snf /usr/bin/fakeroot /usr/bin/sudo && \ 
 
     # Create a non-root user with sudo privileges
     groupadd -g ${GROUP_UID} ${GROUP_NAME} || \
@@ -65,9 +65,9 @@ RUN apt-get update && \
     apt-get clean && \ 
     rm -rf /var/lib/apt/lists/* /var/cache/debconf/* /var/log/* /tmp/* /var/tmp/* && \
 
-    chown -R -f --no-preserve-root ${USER_NAME}:${GROUP_UID} / || \
-      echo "Failed to set filesystem ownership in some paths to ${USER_NAME} user"
+    #chown -R -f --no-preserve-root ${USER_NAME}:${GROUP_UID} / || \
+    #  echo "Failed to set filesystem ownership in some paths to ${USER_NAME} user"
 
 # Switch to non-root user and set the default shell to use fakeroot
 USER ${USER_UID}
-SHELL ["/usr/bin/fakeroot", "--", "/bin/bash", "-c"]
+#SHELL ["/usr/bin/fakeroot", "--", "/bin/bash", "-c"]
