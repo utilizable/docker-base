@@ -58,6 +58,6 @@ RUN apt-get update && \
 
     # Clean up unnecessary files
     apt-get clean && \ 
-    rm -rf /var/lib/apt/lists/* /var/cache/debconf/* /var/log/* /tmp/* /var/tmp/* && \
+    rm -rf /var/lib/apt/lists/* /var/cache/debconf/* /var/log/* /tmp/* /var/tmp/*
 
 USER ${USER_UID}
