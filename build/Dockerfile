@@ -56,4 +56,4 @@ RUN apt-get update && \
 USER ${USER_NAME}
 
 # Set bash shell as default
-SHELL ["/bin/bash", "-c"]
+SHELL ["/usr/bin/sudo", "--", "/bin/bash", "-c"]
