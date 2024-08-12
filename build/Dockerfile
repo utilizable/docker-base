@@ -54,6 +54,3 @@ RUN apt-get update && \
 
 # Switch to non-root user
 USER ${USER_NAME}
-
-# Set the default shell to use fakeroot
-SHELL ["/usr/bin/fakeroot", "--", "/bin/bash", "-c"]
