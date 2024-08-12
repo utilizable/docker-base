@@ -54,3 +54,6 @@ RUN apt-get update && \
 
 # Switch to non-root user
 USER ${USER_NAME}
+
+# Set bash shell as default
+SHELL ["/bin/bash", "-c"]
