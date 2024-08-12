@@ -31,35 +31,29 @@ RUN apt-get update && \
       udev \
       tzdata && \
 
-    # Clean up unnecessary files and set locale and timezone
+    # Set locale and timezone
     locale-gen en_US.UTF-8 && \
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && \
     echo "$TZ" > /etc/timezone && \
 
-    # Move sudo to sudo-root to restrict its use
-    #mv -f /usr/bin/sudo /usr/bin/sudo-root && \
-    #ln -snf /usr/bin/fakeroot /usr/bin/sudo  && \ 
-
     # Create a non-root user with sudo privileges
-    groupadd -g ${USER_UID} ${USER_NAME} || \
-      echo "Failed to add ${USER_NAME} group" && \
+    groupadd -g ${USER_UID} ${USER_NAME} && \
+    useradd -m -l -s /bin/bash -u ${USER_UID} -g ${USER_UID} ${USER_NAME} && \
+    usermod -aG sudo ${USER_NAME} && \
 
-    useradd -m -l /bin/bash ${USER_NAME} -u ${USER_UID} -g ${USER_UID} || \
-      echo "Failed to add ${USER_NAME} user" && \
-
-    # Add fakeroot user to groups 
-    usermod -aG adm,audio,cdrom,dialout,dip,fax,floppy,games,input,lp,plugdev,render,ssl-cert,sudo,tape,tty,video,voice ${USER_NAME} && \
-
-    echo "${USER_NAME} ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    echo "${USER_NAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     echo "${USER_NAME}:${USER_PASSWORD}" | chpasswd && \
 
     # Clean up unnecessary files
-    apt-get clean && \ 
-    rm -rf /var/lib/apt/lists/* /var/cache/debconf/* /var/log/* /tmp/* /var/tmp/* && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* \
+           /var/cache/debconf/* \
+           /var/log/* \
+           /tmp/* \
+           /var/tmp/*
 
-    #chown -R -f --no-preserve-root ${USER_NAME}:${USER_NAME} / || \
-    #  echo "Failed to set filesystem ownership in some paths to ${USER_NAME} user"
+# Switch to non-root user
+USER ${USER_NAME}
 
-# Switch to non-root user and set the default shell to use fakeroot
-USER ${USER_UID}
-#SHELL ["/usr/bin/fakeroot", "--", "/bin/bash", "-c"]
+# Set the default shell to use fakeroot
+SHELL ["/usr/bin/fakeroot", "--", "/bin/bash", "-c"]
