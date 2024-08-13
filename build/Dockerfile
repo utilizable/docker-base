@@ -3,7 +3,7 @@
 # Released under the MIT license
 ############################################################
 #
-# ├─utilizable/ubuntu-fakeroot
+# ├─utilizable/ubuntu-base
 
 ARG DISTRIBUTION=24.04
 FROM ubuntu:${DISTRIBUTION}
@@ -24,7 +24,6 @@ ENV LANG="en_US.UTF-8" \
 # Install required packages
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-      fakeroot \
       locales \
       ssl-cert \
       sudo \
