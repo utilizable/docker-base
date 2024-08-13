@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       dockerfilepath: ${{ steps.find-dockerfile.outputs.DOCKERFILE_PATH }}
+      dockerfiledir: ${{ steps.find-dockerfile.outputs.DOCKERFILE_DIR }}
     steps:
       - uses: actions/checkout@v4
 
@@ -28,9 +29,10 @@ jobs:
         name: Find Dockerfile
         id: find-dockerfile
         run: |
-          DOCKERFILE_PATH=$(find ${PWD} -name "Dockerfile.*") && \
-          if [ -z "$DOCKERFILE_PATH" ]; then exit 1; fi && \
-          echo "DOCKERFILE_PATH=${DOCKERFILE_PATH}" >> $GITHUB_OUTPUT
+          DOCKERFILE_PATH=$(find ${PWD} -name "Dockerfile.*") \
+          && if [ -z "$DOCKERFILE_PATH" ]; then exit 1; fi \
+          && echo "DOCKERFILE_PATH=${DOCKERFILE_PATH}" >> $GITHUB_OUTPUT \
+          && echo "DOCKERFILE_DIR=${DOCKERFILE_PATH/\/Dockerfile*}" >> $GITHUB_OUTPUT
 
   # -----------------
   # Docker linter
@@ -55,6 +57,6 @@ jobs:
       - uses: utilizable/github-actions/.github/actions/building/docker/github@develop
         with:
           token: ${{ secrets.token || github.token }}
-          context: ./build
-          file: ./build/Dockerfile 
+          context: ${{ needs.prepare.outputs.dockerfiledir }}
+          file: ${{ needs.prepare.outputs.dockerfilepath }}
           buildkit: 'false'
