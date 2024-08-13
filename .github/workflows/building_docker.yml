@@ -56,7 +56,8 @@ jobs:
     steps:
       - uses: utilizable/github-actions/.github/actions/building/docker/github@develop
         with:
-          token: ${{ secrets.token || github.token }}
+          #token: ${{ secrets.token || github.token }}
+          token: ${{ github.token }}
           context: ${{ needs.prepare.outputs.dockerfiledir }}
           file: ${{ needs.prepare.outputs.dockerfilepath }}
           buildkit: 'false'
