@@ -6,24 +6,28 @@
 # ├─utilizable/docker-base
 
 # Define build-time arguments.
-ARG DEBIAN_FRONTEND=noninteractive \
-    TZ=UTC \
-    USER_NAME=ubuntu \
-    USER_PASSWORD=mypasswd \
-    USER_UID=1000 \
-    DISTRIBUTION=24.04
+ARG \
+ DISTRIBUTION=24.04
     
 FROM ubuntu:${DISTRIBUTION}
 
-# Set environment variables for locales and timezone.
-ENV LANG="en_US.UTF-8" \
-    LC_ALL="en_US.UTF-8" \
-    LANGUAGE="en_US:en" \
-    TZ=${TZ}
+# Define build-time arguments.
+ARG \
+ DEBIAN_FRONTEND=noninteractive
+
+# Configure locale 
+ARG \
+  LANG="en_US.UTF-8" \
+  LC_ALL="en_US.UTF-8" \
+  LANGUAGE="en_US:en" \
+  TZ=UTC
 
 RUN \
-    echo "**** Update & Dependencies ****" \
+    echo "**** Update apt database ****" \
+        && dpkg --add-architecture i386 \
         && apt-get update \
+    && \
+    echo "**** Install Tools ****" \
         && apt-get install --no-install-recommends -y \
            apt-utils \
            locales \
@@ -33,10 +37,25 @@ RUN \
            tzdata \
     && \
     echo "**** Set locale and timezone ****" \ 
-        && locale-gen en_US.UTF-8 \
-        && ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime \
-        && echo "$TZ" > /etc/timezone \
+        && locale-gen ${LANG} \
+        && ln -snf "/usr/share/zoneinfo/${TZ}" /etc/localtime \
+        && echo "${TZ}" > /etc/timezone \
     && \
+    echo "**** Section cleanup ****" \
+       && apt-get clean autoclean -y \
+       && apt-get autoremove -y \
+       && rm -rf \
+           /var/lib/apt/lists/* \
+           /var/tmp/* \
+           /tmp/*
+
+# Configure user 
+ARG \
+ USER_NAME=ubuntu \
+ USER_PASSWORD=mypasswd \
+ USER_UID=1000
+
+RUN \
     echo "**** Create a non-root user with sudo privileges ****" \     
         && getent group ${USER_NAME} \
             || groupadd -g ${USER_UID} ${USER_NAME} \
@@ -45,17 +64,9 @@ RUN \
         && usermod -aG sudo ${USER_NAME} \
         && grep -q "^${USER_NAME} ALL=(ALL) NOPASSWD: ALL" /etc/sudoers \
             || echo "${USER_NAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
-    && \
-     echo "**** Section cleanup ****" \
-        && apt-get clean autoclean -y \
-        && apt-get autoremove -y \
-        && rm -rf \
-            /var/lib/apt/lists/* \
-            /var/tmp/* \
-            /tmp/*
 
 # Switch to non-root user.
 USER ${USER_NAME}
 
 # Execute bash as root for futher installations.
-ENTRYPOINT ["/usr/bin/sudo", "--", "/bin/bash", "-c"]
+ENTRYPOINT [ "/usr/bin/sudo", "--", "/bin/bash", "-c" ]
