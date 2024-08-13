@@ -53,6 +53,9 @@ jobs:
     name: "Build: Github Package"
     needs: [ prepare, hadolint ]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write    
     steps:
       - uses: utilizable/github-actions/.github/actions/building/docker/github@develop
         with:
