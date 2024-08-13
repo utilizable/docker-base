@@ -11,9 +11,9 @@ FROM ubuntu:${DISTRIBUTION}
 # Define build-time arguments
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TZ=UTC
-ARG USER_NAME=fakeroot
+ARG USER_NAME=ubuntu
 ARG USER_PASSWORD=mypasswd
-ARG USER_UID=1001
+ARG USER_UID=1000
 
 # Set environment variables for locales and timezone
 ENV LANG="en_US.UTF-8" \
@@ -24,6 +24,7 @@ ENV LANG="en_US.UTF-8" \
 # Install required packages
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
+      apt-utils \
       locales \
       ssl-cert \
       sudo \
