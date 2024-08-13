@@ -47,20 +47,6 @@ jobs:
            file: ${{ needs.prepare.outputs.dockerfilepath }}
            
   # -----------------
-  # TEST
-  # -----------------
-  test:
-     needs: [ prepare ]
-     name: "test"
-     runs-on: ubuntu-latest
-     steps:
-      - name: Test
-        shell: bash
-        run: |
-          echo ${{ needs.prepare.outputs.dockerfiledir }}
-          echo ${{ needs.prepare.outputs.dockerfilepath }}
-           
-  # -----------------
   # Building & Pushing to Github registry 
   # -----------------
   github:
